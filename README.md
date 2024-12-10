@@ -1,6 +1,7 @@
 # nanoGPT with Bit Tokenization
 
 *THIS... IS... SPARTA! NON MINUS ULTRA TOKENISATIO!* 🔥
+![nanoGPT](assets/non-minus-ultra.jpg)
 
 This is a working fork of [Andrej Karpathy's nanoGPT](https://github.com/karpathy/nanoGPT) that implements and experiments with bit tokenization instead of the traditional character or BPE tokenization.
 
