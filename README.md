@@ -1,5 +1,65 @@
+# nanoGPT with Bit Tokenization
 
-# nanoGPT
+*THIS... IS... SPARTA! NON MINUS ULTRA TOKENISATIO!* 🔥
+
+This is a working fork of [Andrej Karpathy's nanoGPT](https://github.com/karpathy/nanoGPT) that implements and experiments with bit tokenization instead of the traditional character or BPE tokenization.
+
+## Motivation
+
+1. Because it is beautiful - there's an elegant simplicity in reducing text to its most fundamental digital form
+2. Because bit-level is "non minus ultra" - you can't go deeper than bits in digital representation
+3. Because it tests the limits of transformer architecture's ability to learn patterns at the most granular level
+4. Because it challenges the common assumption that higher-level tokens are always better
+5. Because it helps understand how transformers handle long-range dependencies when sequences are stretched to their limits
+
+## What's Different in this Fork?
+
+- **Bit Tokenization**: Instead of processing text as characters or BPE tokens, this fork processes text at the bit level, where each character is converted into its 8-bit binary representation
+- **Modified Architecture**: Adjusted the model to handle the increased sequence length (8x longer than char-level) with appropriate changes to batch size and other parameters
+- **New Training Configuration**: Added `config/train_shakespeare_bit.py` specifically tuned for bit tokenization training
+- **Custom Tokenizer**: Implemented bit encoding/decoding in `data/shakespeare_bit/tokenizer.py`
+- **Data Pipeline**: Added new data preparation script in `data/shakespeare_bit/prepare.py`
+
+## Key Findings
+
+- The model successfully learns to generate text at the bit level, effectively reconstructing characters from learned bit patterns
+- You may want to tune:
+  - `block_size` (8x longer sequences than char-level)
+  - `batch_size` (reduced due to longer sequences)
+  - `n_embd` (adjusted for bit pattern recognition)
+- Generation quality can vary based on the starting sequence (weird start -- weird generation)
+- The model demonstrates an interesting ability to learn bit patterns while maintaining character-level coherence
+
+## Usage
+
+To train the bit tokenization model on Shakespeare:
+
+```bash
+# Prepare the data
+python data/shakespeare_bit/prepare.py
+
+# Train the model
+python train.py config/train_shakespeare_bit.py
+
+# Generate samples
+python sample.py --out_dir=out-shakespeare-bit --start_text=" "
+```
+
+Hardware requirements:
+- With default configuration, training uses about 12GB of VRAM on an RTX 4090 (24GB total)
+- You can adjust `block_size` and `batch_size` in the config to fit smaller GPUs
+
+## Acknowledgments
+
+Special thanks to:
+- [Andrej Karpathy](https://github.com/karpathy) for creating nanoGPT - an incredibly clean and educational implementation that made this experiment possible
+- [Cursor](https://cursor.sh/) and their Claude-3.5-Sonnet powered AI assistant for pair programming support in implementing this fork within 2 hours including time for training and testing!
+
+...what a time to be alive!
+
+---
+
+# Original nanoGPT README below:
 
 ![nanoGPT](assets/nanogpt.jpg)
 
